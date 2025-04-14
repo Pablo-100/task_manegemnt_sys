@@ -25,6 +25,16 @@ if (isset($_SESSION['role']) && isset($_SESSION['id'])) {
                 <th>Role</th>  
                 <th>Action</th>      
             </tr>
+            <tr>
+                <td>1</td>
+                <td>John Doe</td>
+                <td>johndoe</td>
+                <td>Admin</td>
+                <td>
+                    <a href="edit_user.php?id=1" class="edit-btn">Edit</a> 
+                    <a href="delete_user.php?id=1"class="delete-btn">Delete</a>
+            </td>    
+            </tr>
         </table>   
 		</section>
 	</div>
