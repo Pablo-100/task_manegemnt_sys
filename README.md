@@ -15,9 +15,11 @@ Création, modification et suppression des utilisateurs (par l’administrateur)
 ✅ Gestion des Tâches:
 
  Création et assignation de tâches avec : titre, description, et userID.
- Mise à jour de l’état des tâches par les employés :
- Pending → InProgress → Complet
+
+ Mise à jour de l’état des tâches par les employés : Pending → InProgress → Complet
+
  Suppression de tâches par l’administrateur.
+
  Filtrage des tâches par statut (à venir).
   
   🔔 Notifications:
@@ -32,15 +34,20 @@ Lorsqu'une tâche est assignée à un employé :
   
 📊 Suivi des États:
 
-Diagramme d'état pour les tâches :
-Non Créée → Pending → InProgress → Complet
+Diagramme d'état pour les tâches : 
+
+    Non Créée → Pending → InProgress → Complet
 
 📦 Technologies Utilisées:
 
  Frontend : HTML, CSS, JavaScript
+
  Backend : PHP 7.4+
+
  Base de Données : MySQL 5.7+
+
  Serveur Web : Apache (via XAMPP recommandé)
+
  Conception UML : Diagrammes générés avec PlantUML
 
 📂 Structure du Projet:
@@ -64,7 +71,9 @@ Non Créée → Pending → InProgress → Complet
   3. Configurer la base de données MySQL:
 
      Créer une base de données.
+
      Ajouter les tables utilisateurs, tâches et notifications.
+
      (Le fichier schema.sql sera ajouté prochainement.)
   
   4. Modifier config.php:
@@ -74,13 +83,19 @@ Non Créée → Pending → InProgress → Complet
   5. Lancer l'application:
 
      Ouvrir avec XAMPP, Laragon, ou un autre serveur Apache+MySQL.
-     Naviguer vers http://localhost/employee_task_management_sys/index.php
+
+     Naviguer vers:
+     
+    http://localhost/employee_task_management_sys/index.php
 
 📌 Objectif Pédagogique:
 
    Ce projet vise à renforcer les compétences en :
+
    Programmation côté serveur avec PHP
-   Manipulation de données (CRUD) avec MySQL
+    
+   Manipulation de données (CRUD) avec MySQL.
+    
    Création d’interfaces web dynamiques avec HTML/CSS/JS
     
 
