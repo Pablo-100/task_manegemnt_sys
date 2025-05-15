@@ -1,25 +1,27 @@
 <?php 
 session_start();
-if (isset($_SESSION['role']) && isset($_SESSION['id'])) {
+if (isset($_SESSION['role']) && isset($_SESSION['id']) && $_SESSION['role'] == "employee") {
     include "DB_connection.php";
+    include "app/Model/Task.php";
     include "app/Model/User.php";
-
+    
     if (!isset($_GET['id'])) {
-        header("Location: user.php");
-        exit();
+    	 header("Location: tasks.php");
+    	 exit();
     }
     $id = $_GET['id'];
-    $user = get_user_by_id($conn,$id);
+    $task = get_task_by_id($conn, $id);
 
-    if ($user == 0) {
-        header("Location: user.php");
-        exit();
-    }    
+    if ($task == 0) {
+    	 header("Location: tasks.php");
+    	 exit();
+    }
+   $users = get_all_users($conn);
  ?>
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Edit User</title>
+	<title>Edit Task</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="css/style.css">
 
@@ -30,35 +32,40 @@ if (isset($_SESSION['role']) && isset($_SESSION['id'])) {
 	<div class="body">
 		<?php include "inc/nav.php" ?>
 		<section class="section-1">
-			<h4 class="title">Edit Users <a href="user.php">Users</a></h4>
+			<h4 class="title">Edit Task <a href="my_task.php">Tasks</a></h4>
 			<form class="form-1"
 			      method="POST"
-			      action="app/update-user.php">
+			      action="app/update-task-employee.php">
 			      <?php if (isset($_GET['error'])) {?>
       	  	<div class="danger" role="alert">
 			  <?php echo stripcslashes($_GET['error']); ?>
 			</div>
-      	<?php } ?>
+      	  <?php } ?>
 
-      	<?php if (isset($_GET['success'])) {?>
+      	  <?php if (isset($_GET['success'])) {?>
       	  	<div class="success" role="alert">
 			  <?php echo stripcslashes($_GET['success']); ?>
 			</div>
-      	<?php } ?>
+      	  <?php } ?>
 				<div class="input-holder">
-					<lable>Full Name</lable>
-					<input type="text" name="full_name" class="input-1" placeholder="Full Name" value="<?=$user['full_name']?>"><br>
+					<lable></lable>
+					<p><b>Title: </b><?=$task['title']?></p>
 				</div>
 				<div class="input-holder">
-					<lable>Username</lable>
-					<input type="text" name="user_name" value="<?=$user['username']?>" class="input-1" placeholder="Username"><br>
+					<lable></lable>
+					<p><b>Description: </b><?=$task['description']?></p>
+				</div><br>
+            <div class="input-holder">
+					<lable>Status</lable>
+					<select name="status" class="input-1">
+						<option 
+						      <?php if( $task['status'] == "pending") echo"selected"; ?> >pending</option>
+						<option <?php if( $task['status'] == "in_progress") echo"selected"; ?>>in_progress</option>
+						<option <?php if( $task['status'] == "completed") echo"selected"; ?>>completed</option>
+					</select><br>
 				</div>
-				<div class="input-holder">
-					<lable>Password</lable>
-					<input type="text" name="password" class="input-1" placeholder="Password" value="<?=$user['password']?>"><br>
-				</div>
-				<input type="text" name="id" value="<?=$user['id']?>"hideen>
-				<br><br>
+				<input type="text" name="id" value="<?=$task['id']?>" hidden>
+
 				<button class="edit-btn">Update</button>
 			</form>
 			
@@ -76,4 +83,4 @@ if (isset($_SESSION['role']) && isset($_SESSION['id'])) {
    header("Location: login.php?error=$em");
    exit();
 }
- ?> 
+ ?>

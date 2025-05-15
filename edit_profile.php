@@ -1,25 +1,15 @@
 <?php 
 session_start();
-if (isset($_SESSION['role']) && isset($_SESSION['id'])) {
+if (isset($_SESSION['role']) && isset($_SESSION['id']) && $_SESSION['role'] == "employee") {
     include "DB_connection.php";
     include "app/Model/User.php";
-
-    if (!isset($_GET['id'])) {
-        header("Location: user.php");
-        exit();
-    }
-    $id = $_GET['id'];
-    $user = get_user_by_id($conn,$id);
-
-    if ($user == 0) {
-        header("Location: user.php");
-        exit();
-    }    
+    $user = get_user_by_id($conn, $_SESSION['id']);
+    
  ?>
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Edit User</title>
+	<title>Edit Profile</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="css/style.css">
 
@@ -30,43 +20,47 @@ if (isset($_SESSION['role']) && isset($_SESSION['id'])) {
 	<div class="body">
 		<?php include "inc/nav.php" ?>
 		<section class="section-1">
-			<h4 class="title">Edit Users <a href="user.php">Users</a></h4>
-			<form class="form-1"
+			<h4 class="title">Edit Profile <a href="profile.php">Profile</a></h4>
+         <form class="form-1"
 			      method="POST"
-			      action="app/update-user.php">
+			      action="app/update-profile.php">
 			      <?php if (isset($_GET['error'])) {?>
       	  	<div class="danger" role="alert">
 			  <?php echo stripcslashes($_GET['error']); ?>
 			</div>
-      	<?php } ?>
+      	  <?php } ?>
 
-      	<?php if (isset($_GET['success'])) {?>
+      	  <?php if (isset($_GET['success'])) {?>
       	  	<div class="success" role="alert">
 			  <?php echo stripcslashes($_GET['success']); ?>
 			</div>
-      	<?php } ?>
+      	  <?php } ?>
 				<div class="input-holder">
 					<lable>Full Name</lable>
 					<input type="text" name="full_name" class="input-1" placeholder="Full Name" value="<?=$user['full_name']?>"><br>
 				</div>
+
 				<div class="input-holder">
-					<lable>Username</lable>
-					<input type="text" name="user_name" value="<?=$user['username']?>" class="input-1" placeholder="Username"><br>
+					<lable>Old Password</lable>
+					<input type="text" value="**********" name="password" class="input-1" placeholder="Old Password"><br>
 				</div>
 				<div class="input-holder">
-					<lable>Password</lable>
-					<input type="text" name="password" class="input-1" placeholder="Password" value="<?=$user['password']?>"><br>
+					<lable>New Password</lable>
+					<input type="text" name="new_password" class="input-1" placeholder="New Password"><br>
 				</div>
-				<input type="text" name="id" value="<?=$user['id']?>"hideen>
-				<br><br>
-				<button class="edit-btn">Update</button>
+				<div class="input-holder">
+					<lable>Confirm Password</lable>
+					<input type="text" name="confirm_password" class="input-1" placeholder="Confirm Password"><br>
+				</div>
+
+				<button class="edit-btn">Change</button>
 			</form>
-			
+
 		</section>
 	</div>
 
 <script type="text/javascript">
-	var active = document.querySelector("#navList li:nth-child(2)");
+	var active = document.querySelector("#navList li:nth-child(3)");
 	active.classList.add("active");
 </script>
 </body>
@@ -76,4 +70,4 @@ if (isset($_SESSION['role']) && isset($_SESSION['id'])) {
    header("Location: login.php?error=$em");
    exit();
 }
- ?> 
+ ?>

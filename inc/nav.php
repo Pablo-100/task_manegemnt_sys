@@ -68,6 +68,12 @@
 			</a>
 		</li>
 		<li>
+			<a href="notifications.php">
+				<i class="fa fa-bell" aria-hidden="true"></i>
+				<span>Notifications</span>
+			</a>
+		</li>
+		<li>
 			<a href="logout.php">
 				<i class="fa fa-sign-out" aria-hidden="true"></i>
 				<span>Logout</span>
